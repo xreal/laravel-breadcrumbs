@@ -32,8 +32,9 @@ class ServiceProvider extends BaseServiceProvider
         $this->app['breadcrumbs'] = $this->app->share(function($app)
         {
             $breadcrumbs = new Manager($app['view'], $app['router']);
-
-            $breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
+            $viewPath = __DIR__ . '/../../views/';
+            $this->loadViewsFrom('breadcrumbs', $viewPath);
+            $breadcrumbs->setView($app['config']['breadcrumbs.view']);
 
             return $breadcrumbs;
         });
@@ -51,10 +52,13 @@ class ServiceProvider extends BaseServiceProvider
 
         // Load the app breadcrumbs if they're in app/Http/breadcrumbs.php (Laravel 5.x)
         if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
+        {
             require $file;
-
+        }
         // Load the app breadcrumbs if they're in app/breadcrumbs.php (Laravel 4.x)
         elseif (file_exists($file = $this->app['path'].'/breadcrumbs.php'))
+        {
             require $file;
+        }
     }
 }
