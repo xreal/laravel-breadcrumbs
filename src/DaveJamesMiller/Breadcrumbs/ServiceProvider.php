@@ -50,9 +50,9 @@ class ServiceProvider extends BaseServiceProvider
     protected function prepareResources()
     {
         $configPath = __DIR__ . '/../../config/config.php';
-        $this->mergeConfigFrom($configPath, 'breadcrumb');
+        $this->mergeConfigFrom($configPath, 'breadcrumbs');
         $this->publishes([
-            $configPath => config_path('breadcrumb.php'),
+            $configPath => config_path('breadcrumbs.php'),
         ]);
     }
 
