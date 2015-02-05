@@ -29,6 +29,8 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
+        $this->prepareResources();
+        
         $this->app['breadcrumbs'] = $this->app->share(function($app)
         {
             $breadcrumbs = new Manager($app['view'], $app['router']);
@@ -38,6 +40,20 @@ class ServiceProvider extends BaseServiceProvider
 
             return $breadcrumbs;
         });
+    }
+    
+    /**
+     * Prepare the package resources.
+     *
+     * @return void
+     */
+    protected function prepareResources()
+    {
+        $configPath = __DIR__ . '/../../config/config.php';
+        $this->mergeConfigFrom($configPath, 'breadcrumb');
+        $this->publishes([
+            $configPath => config_path('breadcrumb.php'),
+        ]);
     }
 
     /**
