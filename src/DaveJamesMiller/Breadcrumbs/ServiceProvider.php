@@ -33,7 +33,7 @@ class ServiceProvider extends BaseServiceProvider
         {
             $breadcrumbs = new Manager($app['view'], $app['router']);
             $viewPath = __DIR__ . '/../../views/';
-            $this->loadViewsFrom('breadcrumbs', $viewPath);
+            $this->loadViewsFrom($viewPath, 'breadcrumbs');
             $breadcrumbs->setView($app['config']['breadcrumbs.view']);
 
             return $breadcrumbs;
@@ -48,7 +48,7 @@ class ServiceProvider extends BaseServiceProvider
     public function boot()
     {
         // Register the package so the default view can be loaded
-        $this->package('davejamesmiller/laravel-breadcrumbs');
+        //$this->package('davejamesmiller/laravel-breadcrumbs');
 
         // Load the app breadcrumbs if they're in app/Http/breadcrumbs.php (Laravel 5.x)
         if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
